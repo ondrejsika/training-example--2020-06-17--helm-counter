@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: counter
+  name: counter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: counter
+  template:
+    metadata:
+      labels:
+        service: counter
+    spec:
+      containers:
+        - image: ondrejsika/counter
+          name: counter
+          ports:
+            - containerPort: 80
