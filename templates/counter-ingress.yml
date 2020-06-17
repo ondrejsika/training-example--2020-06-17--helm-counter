@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: counter
+  name: {{ .Release.Name }}-counter
 spec:
   rules:
-    - host: counter.192.168.64.26.nip.io
+    - host: {{ .Values.host }}
       http:
         paths:
           - path: /
             backend:
-              serviceName: counter
+              serviceName: {{ .Release.Name }}-counter
               servicePort: 80

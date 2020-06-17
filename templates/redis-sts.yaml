@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    service: redis
-  name: redis
+    service: {{ .Release.Name }}-redis
+  name: {{ .Release.Name }}-redis
 spec:
-  serviceName: redis
+  serviceName: {{ .Release.Name }}-redis
   replicas: 1
   selector:
     matchLabels:
-      service: redis
+      service: {{ .Release.Name }}-redis
   template:
     metadata:
       labels:
-        service: redis
+        service: {{ .Release.Name }}-redis
     spec:
       containers:
         - image: redis
-          name: redis
+          name: {{ .Release.Name }}-redis
           ports:
             - containerPort: 6379
           resources:
@@ -29,4 +29,4 @@ spec:
       volumes:
         - name: redis-data
           persistentVolumeClaim:
-            claimName: redis-data
+            claimName: {{ .Release.Name }}-redis-data

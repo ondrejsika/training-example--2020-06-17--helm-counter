@@ -2,20 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: counter
-  name: counter
+    service: {{ .Release.Name }}-counter
+  name: {{ .Release.Name }}-counter
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      service: counter
+      service: {{ .Release.Name }}-counter
   template:
     metadata:
       labels:
-        service: counter
+        service: {{ .Release.Name }}-counter
     spec:
       containers:
         - image: ondrejsika/counter
-          name: counter
+          name: {{ .Release.Name }}-counter
           ports:
             - containerPort: 80
+          env:
+            - name: REDIS
+              value: {{ .Release.Name }}-redis

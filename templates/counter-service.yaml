@@ -2,12 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: counter
-  name: counter
+    service: {{ .Release.Name }}-counter
+  name: {{ .Release.Name }}-counter
 spec:
   ports:
-    - name: "80"
-      port: 80
+    - port: 80
       targetPort: 80
   selector:
-    service: counter
+    service: {{ .Release.Name }}-counter
